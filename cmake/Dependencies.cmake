@@ -41,10 +41,10 @@ function(search_dependency pkg)
   set(multiValueArgs)
   cmake_parse_arguments(arg "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
-  ## Try pkg-config first.
-  #if(NOT ${pkg}_FOUND AND arg_PACKAGE)
-  #  pkg_search_module(${pkg} ${arg_PACKAGE})
-  #endif()
+  # Try pkg-config first.
+  if(NOT ${pkg}_FOUND AND arg_PACKAGE)
+    pkg_search_module(${pkg} ${arg_PACKAGE})
+  endif()
 
   # Then, try OSX frameworks.
   if(NOT ${pkg}_FOUND AND arg_FRAMEWORK)
@@ -104,7 +104,7 @@ if (NOT TOXCORE_FOUND OR
     search_dependency(TOXAV               LIBRARY libtoxav)
 endif()
 
-search_dependency(OPENAL              LIBRARY openal FRAMEWORK OpenAL)
+search_dependency(OPENAL              PACKAGE openal FRAMEWORK OpenAL)
 
 # Automatic auto-away support. (X11 also using for capslock detection)
 search_dependency(X11                 LIBRARY x11 OPTIONAL)
