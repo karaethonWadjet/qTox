@@ -505,6 +505,15 @@ if(${ENABLE_GTK_SYSTRAY})
   endif()
 endif()
 
+# this is used when searching for libraries e.g. using the FIND_LIBRARY() command.
+MESSAGE( STATUS "CMAKE_LIBRARY_PATH: " ${CMAKE_LIBRARY_PATH} )
+
+# the compiler flags for compiling C sources 
+MESSAGE( STATUS "CMAKE_C_FLAGS: " ${CMAKE_C_FLAGS} )
+
+# the compiler flags for compiling C++ sources 
+MESSAGE( STATUS "CMAKE_CXX_FLAGS: " ${CMAKE_CXX_FLAGS} )
+
 add_library(${PROJECT_NAME}_static
   STATIC
   ${${PROJECT_NAME}_FORMS}
