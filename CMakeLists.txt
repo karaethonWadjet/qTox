@@ -522,5 +522,5 @@ target_link_libraries(${PROJECT_NAME}
   ${PROJECT_NAME}_static
   ${ALL_LIBRARIES})
 
-include(Testing)
+#include(Testing)
 include(Installation)
