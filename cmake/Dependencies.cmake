@@ -72,6 +72,11 @@ function(search_dependency pkg)
       message(FATAL_ERROR "${pkg} package, library or framework not found")
     endif()
   else()
+  
+    message(STATUS ${pkg} " LIBRARY_DIRS: " ${${pkg}_LIBRARY_DIRS} )
+    message(STATUS ${pkg} " INCLUDE_DIRS: " ${${pkg}_INCLUDE_DIRS} )
+    message(STATUS ${pkg} " CFLAGS_OTHER: " ${${pkg}_CFLAGS_OTHER} )
+    message(STATUS ${pkg} " LIBRARIES:    " ${${pkg}_LIBRARIES} )
     link_directories(${${pkg}_LIBRARY_DIRS})
     include_directories(${${pkg}_INCLUDE_DIRS})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${${pkg}_CFLAGS_OTHER}" PARENT_SCOPE)
@@ -105,8 +110,15 @@ if (NOT TOXCORE_FOUND OR
 endif()
 
 find_package(OpenAL REQUIRED)
+
+message(STATUS "OPENAL" " LIBRARY_DIRS: " ${OPENAL_LIBRARY_DIRS} )
+message(STATUS "OPENAL" " INCLUDE_DIRS: " ${OPENAL_INCLUDE_DIRS} )
+message(STATUS "OPENAL" " CFLAGS_OTHER: " ${OPENAL_CFLAGS_OTHER} )
+message(STATUS "OPENAL" " LIBRARY:      " ${OPENAL_LIBRARY} )
+
+link_directories(${OPENAL_LIBRARY_DIRS})
 include_directories(${OPENAL_INCLUDE_DIRS})
-set(ALL_LIBRARIES ${ALL_LIBRARIES} ${OPENAL_LIBRARIES})
+set(ALL_LIBRARIES ${ALL_LIBRARIES} ${OPENAL_LIBRARY})
 
 # Automatic auto-away support. (X11 also using for capslock detection)
 search_dependency(X11                 LIBRARY x11 OPTIONAL)
