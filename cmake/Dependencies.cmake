@@ -104,7 +104,9 @@ if (NOT TOXCORE_FOUND OR
     search_dependency(TOXAV               LIBRARY libtoxav)
 endif()
 
-search_dependency(OPENAL              PACKAGE openal FRAMEWORK OpenAL)
+find_package(OpenAL REQUIRED)
+include_directories(${OPENAL_INCLUDE_DIRS})
+set(ALL_LIBRARIES ${ALL_LIBRARIES} ${OPENAL_LIBRARIES})
 
 # Automatic auto-away support. (X11 also using for capslock detection)
 search_dependency(X11                 LIBRARY x11 OPTIONAL)
