@@ -86,39 +86,30 @@ function(search_dependency pkg)
   set(${pkg}_FOUND ${${pkg}_FOUND} PARENT_SCOPE)
 endfunction()
 
-search_dependency(LIBAVCODEC          LIBRARY libavcodec)
-search_dependency(LIBAVDEVICE         LIBRARY libavdevice)
-search_dependency(LIBAVFORMAT         LIBRARY libavformat)
-search_dependency(LIBAVUTIL           LIBRARY libavutil)
-search_dependency(LIBQRENCODE         LIBRARY libqrencode)
-search_dependency(LIBSODIUM           LIBRARY libsodium)
-search_dependency(LIBSWSCALE          LIBRARY libswscale)
-search_dependency(SQLCIPHER           LIBRARY sqlcipher)
-search_dependency(VPX                 LIBRARY vpx)
+search_dependency(LIBAVCODEC          PACKAGE libavcodec)
+search_dependency(LIBAVDEVICE         PACKAGE libavdevice)
+search_dependency(LIBAVFORMAT         PACKAGE libavformat)
+search_dependency(LIBAVUTIL           PACKAGE libavutil)
+search_dependency(LIBQRENCODE         PACKAGE libqrencode)
+search_dependency(LIBSODIUM           PACKAGE libsodium)
+search_dependency(LIBSWSCALE          PACKAGE libswscale)
+search_dependency(SQLCIPHER           PACKAGE sqlcipher)
+search_dependency(VPX                 PACKAGE vpx)
 
 # Try to find cmake toxcore libraries
-search_dependency(TOXCORE             LIBRARY toxcore          OPTIONAL)
-search_dependency(TOXAV               LIBRARY toxav            OPTIONAL)
-search_dependency(TOXENCRYPTSAVE      LIBRARY toxencryptsave   OPTIONAL)
+search_dependency(TOXCORE             PACKAGE toxcore          OPTIONAL)
+search_dependency(TOXAV               PACKAGE toxav            OPTIONAL)
+search_dependency(TOXENCRYPTSAVE      PACKAGE toxencryptsave   OPTIONAL)
 
 # If not found, use automake toxcore libraries
 if (NOT TOXCORE_FOUND OR
         NOT TOXAV_FOUND OR
         NOT TOXENCRYPTSAVE_FOUND)
-    search_dependency(TOXCORE             LIBRARY libtoxcore)
-    search_dependency(TOXAV               LIBRARY libtoxav)
+    search_dependency(TOXCORE         PACKAGE libtoxcore)
+    search_dependency(TOXAV           PACKAGE libtoxav)
 endif()
 
-find_package(OpenAL REQUIRED)
-
-message(STATUS "OPENAL" " LIBRARY_DIRS: " ${OPENAL_LIBRARY_DIRS} )
-message(STATUS "OPENAL" " INCLUDE_DIRS: " ${OPENAL_INCLUDE_DIRS} )
-message(STATUS "OPENAL" " CFLAGS_OTHER: " ${OPENAL_CFLAGS_OTHER} )
-message(STATUS "OPENAL" " LIBRARY:      " ${OPENAL_LIBRARY} )
-
-link_directories(${OPENAL_LIBRARY_DIRS})
-include_directories(${OPENAL_INCLUDE_DIRS})
-set(ALL_LIBRARIES ${ALL_LIBRARIES} ${OPENAL_LIBRARY})
+search_dependency(OPENAL              PACKAGE openal FRAMEWORK OpenAL)
 
 # Automatic auto-away support. (X11 also using for capslock detection)
 search_dependency(X11                 LIBRARY x11 OPTIONAL)
